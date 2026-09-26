@@ -1,4 +1,5 @@
 //import { Link } from "react-router-dom";
+import { MdMarkEmailRead } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -56,14 +57,17 @@ function Resetpass() {
       </p>
 
       {/* Email */}
-      <div className="mt-4">
+      <div className="mt-4 relative w-[280px] mx-auto">
         <input
           type="email"
           placeholder="Email id"
            value={email}
               onChange={(e) => setEmail(e.target.value)}
-          className="h-7 w-[280px] rounded-full bg-[#354263] px-5 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
+          className="h-7 w-[280px] rounded-full bg-[#354263]  pl-8 px-5 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
         />
+         <MdMarkEmailRead
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
+           size={15} />
       </div>
 
        {/* NEW: Show error message */}

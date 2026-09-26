@@ -1,3 +1,7 @@
+
+import { MdMarkEmailRead } from "react-icons/md";
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -94,29 +98,37 @@ function Signin() {
 
 
           {/* username */}
-          <div className="mt-3">
+          <div className="mt-3 relative w-[280px] mx-auto">
             <input
               type="text"
               placeholder="New Username"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="h-8 w-[280px] rounded-full bg-[#354263] px-5 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
+              className="h-8 w-[280px] rounded-full bg-[#354263] pl-8 px-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
             />
+             <MdOutlineDriveFileRenameOutline
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
+                size={15}
+               />
+
           </div>
 
           {/* Email */}
-          <div className="mt-3">
+          <div className="mt-3 relative w-[280px] mx-auto">
             <input
               type="email"
               placeholder="Your Email id"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-8 w-[280px] rounded-full bg-[#354263] px-5 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
+              className="h-8 w-[280px] rounded-full bg-[#354263] pl-8 px-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
             />
+            <MdMarkEmailRead
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
+                size={15} />
           </div>
 
           {/* Password */}
-          <div className="relative mt-3 w-[280px]">
+          <div className="relative mt-3 w-[280px] mx-auto">
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="New Password"
@@ -126,23 +138,32 @@ function Signin() {
             />
             <button
               type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-300 hover:text-white"
             >
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
 
-          {/* Password */}
-          <div className="mt-3">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="h-8 w-[280px] rounded-full bg-[#354263] px-5 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
-            />
-          </div>
+          {/* Confirm Password */}
+<div className="relative mt-3 w-[280px] mx-auto">
+  <input
+    type={showPassword ? "text" : "password"}
+    placeholder="Confirm Password"
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    className="h-8 w-full rounded-full bg-[#354263] pl-5 pr-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
+  />
+
+  <button
+    type="button"
+    onClick={() => setConfirmPassword(!confirmPassword)}
+    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-300 hover:text-white"
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </button>
+</div>
+          
 
           {error && (
             <p className="mt-2 text-center text-xs text-red-400">
