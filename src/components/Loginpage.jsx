@@ -43,7 +43,7 @@ function LoginCard() {
     }
 
     try {
-      const response = await fetch("https://authify-backend-ypf8.onrender.com/api/auth/login", {
+      const response = await fetch("https://authify-backend-ypf8.onrender.com/api/v1/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
