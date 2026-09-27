@@ -1,19 +1,14 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { resetOTP } from "../services/auth.service";
 
 
 function ResetOTP() {
 
   const inputRefs = useRef([]);
-
-  // NEW: Stores the OTP entered by the user
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-
-  // NEW: Stores the error message
   const [error, setError] = useState("");
-
-  // NEW: Used to move to another page
   const navigate = useNavigate();
 
 
@@ -26,7 +21,6 @@ function ResetOTP() {
       return;
     }
 
-    // NEW: Store the OTP value
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -37,12 +31,8 @@ function ResetOTP() {
     }
   };
 
-
-  // NEW: This function runs when Verify OTP is clicked
-  const handleVerifyOTP = (e) => {
+  const handleVerifyOTP = async (e) => {
     e.preventDefault();
-
-    // Clear old error
     setError("");
 
     // 1. Check if all OTP boxes are filled
@@ -50,116 +40,121 @@ function ResetOTP() {
       setError("Please enter the complete 6-digit OTP");
       return;
     }
+    try {
+      const response = await resetOTP({
+        email: email,
+      })
 
-    // Everything is valid
-    alert("OTP verified successfully!");
-
-    // Go to New Password page
-    navigate("/new-password");
-  };
-
-
-  return(
-    <div className="min-h-screen w-full bg-linear-to-r from-blue-200 via-purple-200 to-purple-300 flex items-center justify-center">
-
-      <div className="min-h-screen flex items-center justify-center">
-
-        <div className="w-[380px] rounded-lg bg-[#091629] px-4 py-4 shadow-xl">
-
-          {/* Heading */}
-          <h2 className="!text-white text-center text-3xl font-bold whitespace-nowrap">
-            Verify OTP
-          </h2>
-
-          {/* Subtitle */}
-          <p className="mt-2 text-center text-xs text-indigo-300">
-            Enter the 6-digit code sent to your Email id
-          </p>
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("Post failed:", error);
+    }
+ 
+  alert("OTP verified successfully!");
+  navigate("/new-password");
+};
 
 
-          <div className="mt-6 flex justify-center gap-2">
 
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[0] = el)}
-              value={otp[0]}
-              onChange={(e) => handleChange(e, 0)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
+return (
+  <div className="min-h-screen w-full bg-linear-to-r from-blue-200 via-purple-200 to-purple-300 flex items-center justify-center">
 
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[1] = el)}
-              value={otp[1]}
-              onChange={(e) => handleChange(e, 1)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
+    <div className="min-h-screen flex items-center justify-center">
 
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[2] = el)}
-              value={otp[2]}
-              onChange={(e) => handleChange(e, 2)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
+      <div className="w-[380px] rounded-lg bg-[#091629] px-4 py-4 shadow-xl">
 
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[3] = el)}
-              value={otp[3]}
-              onChange={(e) => handleChange(e, 3)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
+        {/* Heading */}
+        <h2 className="!text-white text-center text-3xl font-bold whitespace-nowrap">
+          Verify OTP
+        </h2>
 
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[4] = el)}
-              value={otp[4]}
-              onChange={(e) => handleChange(e, 4)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
-
-            <input
-              type="text"
-              maxLength="1"
-              ref={(el) => (inputRefs.current[5] = el)}
-              value={otp[5]}
-              onChange={(e) => handleChange(e, 5)}
-              className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
-            />
-
-          </div>
+        {/* Subtitle */}
+        <p className="mt-2 text-center text-xs text-indigo-300">
+          Enter the 6-digit code sent to your Email id
+        </p>
 
 
-          {/* NEW: Show error message */}
-          {error && (
-            <p className="mt-2 text-center text-xs text-red-400">
-              {error}
-            </p>
-          )}
+        <div className="mt-6 flex justify-center gap-2">
 
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[0] = el)}
+            value={otp[0]}
+            onChange={(e) => handleChange(e, 0)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
 
-          {/* Verify OTP Button */}
-          <button
-            type="button"
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[1] = el)}
+            value={otp[1]}
+            onChange={(e) => handleChange(e, 1)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
 
-            // NEW: Run validation when clicked
-            onClick={handleVerifyOTP}
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[2] = el)}
+            value={otp[2]}
+            onChange={(e) => handleChange(e, 2)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
 
-            className="mt-4 h-7 w-[280px] mx-auto rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 font-normal text-xs text-white transition hover:scale-[1.02] flex items-center justify-center"
-          >
-            Verify OTP
-          </button>
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[3] = el)}
+            value={otp[3]}
+            onChange={(e) => handleChange(e, 3)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
+
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[4] = el)}
+            value={otp[4]}
+            onChange={(e) => handleChange(e, 4)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
+
+          <input
+            type="text"
+            maxLength="1"
+            ref={(el) => (inputRefs.current[5] = el)}
+            value={otp[5]}
+            onChange={(e) => handleChange(e, 5)}
+            className="h-10 w-10 rounded-md bg-[#354263] text-center text-white outline-none"
+          />
 
         </div>
+
+
+        {/* NEW: Show error message */}
+        {error && (
+          <p className="mt-2 text-center text-xs text-red-400">
+            {error}
+          </p>
+        )}
+
+
+      
+        <button
+          type="button"
+          onClick={handleVerifyOTP}
+          className="mt-4 h-7 w-[280px] mx-auto rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 font-normal text-xs text-white transition hover:scale-[1.02] flex items-center justify-center"
+        >
+          Verify OTP
+        </button>
+
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default ResetOTP;

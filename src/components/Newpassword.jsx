@@ -3,25 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Newpassword() {
-
-  // NEW: Stores the new password
   const [password, setPassword] = useState("");
-
-  // NEW: Stores the confirm password
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // NEW: Stores the error message
   const [error, setError] = useState("");
-
-  // NEW: Used to move to another page
   const navigate = useNavigate();
 
-
-  // NEW: This function runs when Confirm Password is clicked
   const handlePassword = (e) => {
     e.preventDefault();
-
-    // Clear old error
     setError("");
 
     // 1. Check new password
@@ -48,10 +36,8 @@ function Newpassword() {
       return;
     }
 
-    // Everything is valid
-    alert("Password changed successfully!");
 
-    // Go to Login page
+    alert("Password changed successfully!");
     navigate("/login");
   };
 
@@ -102,7 +88,7 @@ function Newpassword() {
           </div>
 
 
-          {/* NEW: Show error message */}
+         
           {error && (
             <p className="mt-2 text-center text-xs text-red-400">
               {error}
@@ -113,10 +99,7 @@ function Newpassword() {
           {/* Confirm Password Button */}
           <button
             type="button"
-
-            // NEW: Run validation when clicked
             onClick={handlePassword}
-
             className="mt-4 h-7 w-[280px] mx-auto rounded-full bg-gradient-to-r from-indigo-400 to-purple-500 font-normal text-xs text-white transition hover:scale-[1.02] flex items-center justify-center"
           >
             Confirm Password

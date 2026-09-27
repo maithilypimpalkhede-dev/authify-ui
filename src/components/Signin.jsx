@@ -58,18 +58,11 @@ function Signin() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
+      const response = await postRegister({
           name: name,
           email: email,
           password: password
         })
-      });
-      if (!response.ok) throw new Error(`Status: ${response.status}`);
 
       const result = await response.json();
       console.log("Success:", result);

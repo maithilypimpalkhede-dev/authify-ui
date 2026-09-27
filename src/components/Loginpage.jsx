@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { useState } from "react";
+import { postLogin } from "../services/auth.service";
 
 function LoginCard() {
   const [username, setUsername] = useState("");
@@ -43,17 +44,11 @@ function LoginCard() {
     }
 
     try {
-      const response = await fetch("https://authify-backend-ypf8.onrender.com/api/v1/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      });
-      if (!response.ok) throw new Error(`Status: ${response.status}`);
+      const response = await postLogin({
+        email: email,
+        password, password
+      })
+    
 
       const result = await response.json();
       alert("Login Successful")
