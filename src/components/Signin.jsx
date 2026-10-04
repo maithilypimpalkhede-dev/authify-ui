@@ -1,4 +1,4 @@
-
+import { postRegister } from "../services/auth.service";
 import { MdMarkEmailRead } from "react-icons/md";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -59,10 +59,10 @@ function Signin() {
 
     try {
       const response = await postRegister({
-          name: name,
-          email: email,
-          password: password
-        })
+        name: name,
+        email: email,
+        password: password
+      })
 
       const result = await response.json();
       console.log("Success:", result);
@@ -99,10 +99,10 @@ function Signin() {
               onChange={(e) => setName(e.target.value)}
               className="h-8 w-[280px] rounded-full bg-[#354263] pl-8 px-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
             />
-             <MdOutlineDriveFileRenameOutline
+            <MdOutlineDriveFileRenameOutline
               className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
-                size={15}
-               />
+              size={15}
+            />
 
           </div>
 
@@ -116,8 +116,8 @@ function Signin() {
               className="h-8 w-[280px] rounded-full bg-[#354263] pl-8 px-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
             />
             <MdMarkEmailRead
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
-                size={15} />
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-100"
+              size={15} />
           </div>
 
           {/* Password */}
@@ -139,24 +139,24 @@ function Signin() {
           </div>
 
           {/* Confirm Password */}
-<div className="relative mt-3 w-[280px] mx-auto">
-  <input
-    type={showPassword ? "text" : "password"}
-    placeholder="Confirm Password"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-    className="h-8 w-full rounded-full bg-[#354263] pl-5 pr-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
-  />
+          <div className="relative mt-3 w-[280px] mx-auto">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="h-8 w-full rounded-full bg-[#354263] pl-5 pr-10 text-sm text-white outline-none placeholder:text-gray-300 focus:ring-2 focus:ring-indigo-400"
+            />
 
-  <button
-    type="button"
-    onClick={() => setConfirmPassword(!confirmPassword)}
-    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-300 hover:text-white"
-  >
-    {showPassword ? <FaEyeSlash /> : <FaEye />}
-  </button>
-</div>
-          
+            <button
+              type="button"
+              onClick={() => setConfirmPassword(!confirmPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-300 hover:text-white"
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+
 
           {error && (
             <p className="mt-2 text-center text-xs text-red-400">

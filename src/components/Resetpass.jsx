@@ -2,7 +2,7 @@
 import { MdMarkEmailRead } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { resetPassword } from "../services/auth.service";
+import { resetOTP, resetPassword } from "../services/auth.service";
 
 
 function Resetpass() {
@@ -27,10 +27,8 @@ function Resetpass() {
       return;
     }
 
-    const response = await resetPassword({
-      otp: otp,
+    const response = await resetOTP({
       email: email,
-      password: password
     })
 
     const result = await response.json();
