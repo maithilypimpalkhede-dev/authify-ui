@@ -46,10 +46,9 @@ function LoginCard() {
     try {
       const response = await postLogin({
         email: email,
-        password, password
+        password: password
       })
     
-
       const result = await response.json();
       alert("Login Successful")
       console.log("Success:", result);
