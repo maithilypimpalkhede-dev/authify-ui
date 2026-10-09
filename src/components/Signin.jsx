@@ -66,8 +66,10 @@ function Signin() {
 
       const result = await response.json();
       console.log("Success:", result);
+      alert("Account created successfully!");
     } catch (error) {
       console.error("Post failed:", error);
+      alert("Account creation failed!");
     }
   };
 
